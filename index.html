@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#6b4eff">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="description" content="Find your perfect home in Nigeria. Verified listings, best prices, secure payments.">
+    <title>House Rental - Find Your Perfect Home</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="assets/icons/icon-192x192.svg">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- ==================== HOME PAGE ==================== -->
+    <div id="page-home" class="page active">
+        <header class="app-header">
+            <div class="container header-row">
+                <div class="header-left">
+                    <button class="neu-btn-circle" aria-label="Menu" onclick="showToast('Menu coming soon')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+                    </button>
+                    <div class="header-greeting">
+                        <h1>Hello, Abumchukwu 👋</h1>
+                        <p>Find your perfect home</p>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="neu-btn-circle notif-btn" onclick="navigateTo('notifications')" aria-label="Notifications">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                        <span id="nav-notification-badge" class="notification-badge" style="display:none;"></span>
+                    </button>
+                    <img class="avatar" src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face" alt="Profile" onclick="navigateTo('profile')">
+                </div>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Search -->
+            <div class="search-wrap">
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="search-input" placeholder="Search location, city or property..." aria-label="Search">
+                    <button class="search-filter-btn" onclick="openFilterDrawer()" aria-label="Filter">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Hero -->
+            <section class="hero-section">
+                <div id="hero-slides"></div>
+                <div id="hero-dots" class="hero-dots"></div>
+            </section>
+
+            <!-- Categories -->
+            <section style="margin-bottom:22px;">
+                <div id="categories-container" class="categories-scroll"></div>
+            </section>
+
+            <!-- Featured Properties -->
+            <section style="margin-bottom:22px;">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Properties</h2>
+                    <button class="see-all" onclick="navigateTo('search')">See All <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+                </div>
+                <div id="featured-properties" class="props-scroll"></div>
+            </section>
+
+            <!-- Near You -->
+            <section style="margin-bottom:22px;">
+                <div class="section-header">
+                    <h2 class="section-title">Near You</h2>
+                    <button class="see-all" onclick="navigateTo('search')">See All <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+                </div>
+                <div id="near-you-properties" class="near-scroll"></div>
+            </section>
+
+            <!-- Why Choose Us -->
+            <section style="margin-bottom:22px;">
+                <div class="section-header">
+                    <h2 class="section-title">Why Choose Us</h2>
+                </div>
+                <div id="why-choose-us" class="why-grid"></div>
+            </section>
+        </main>
+    </div>
+
+    <!-- ==================== SEARCH PAGE ==================== -->
+    <div id="page-search" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Search</h2>
+                <button class="neu-btn-circle" onclick="openFilterDrawer()" aria-label="Filter">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                </button>
+            </div>
+        </header>
+        <main class="container">
+            <div class="search-wrap">
+                <div class="search-bar">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="search-input-page" placeholder="Search location, city or property..." aria-label="Search">
+                    <button class="search-filter-btn" onclick="openFilterDrawer()" aria-label="Filter">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    </button>
+                </div>
+            </div>
+            <h3 id="search-query-display" style="font-size:0.9375rem;font-weight:700;margin-bottom:14px;color:var(--text);">All Properties</h3>
+            <div id="search-results"></div>
+        </main>
+    </div>
+
+    <!-- ==================== PROPERTY DETAILS ==================== -->
+    <div id="page-property-details" class="page">
+        <header class="app-header details-header">
+            <div class="container details-header-content">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:0.9375rem;font-weight:700;">Property Details</h2>
+                <button class="neu-btn-circle" onclick="showToast('Shared successfully')" aria-label="Share">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+                </button>
+            </div>
+        </header>
+        <main class="container">
+            <div id="property-details-content"></div>
+        </main>
+        <div class="details-footer">
+            <button class="btn-secondary" onclick="openInspectionForm()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                Book Inspection
+            </button>
+            <button class="btn-primary" onclick="openPaymentFromDetails()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+                Reserve Now
+            </button>
+        </div>
+    </div>
+
+    <!-- ==================== SAVED ==================== -->
+    <div id="page-saved" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Saved Properties</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="saved-properties-list"></div></main>
+    </div>
+
+    <!-- ==================== MESSAGES ==================== -->
+    <div id="page-messages" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Messages</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="messages-list" class="chat-list"></div></main>
+    </div>
+
+    <!-- ==================== CHAT ==================== -->
+    <div id="page-chat" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('messages')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <div id="chat-header-info" style="display:flex;align-items:center;gap:10px;flex:1;"></div>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <div class="chat-screen">
+            <div id="chat-screen-content" class="chat-messages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Type a message..." onkeydown="if(event.key==='Enter')sendChatMessage()">
+                <button class="chat-send-btn" onclick="sendChatMessage()" aria-label="Send">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== PROFILE ==================== -->
+    <div id="page-profile" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Profile</h2>
+                <button class="neu-btn-circle" onclick="navigateTo('settings')" aria-label="Settings">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                </button>
+            </div>
+        </header>
+        <main class="container"><div id="profile-content"></div></main>
+    </div>
+
+    <!-- ==================== NOTIFICATIONS ==================== -->
+    <div id="page-notifications" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('home')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Notifications</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="notifications-list"></div></main>
+    </div>
+
+    <!-- ==================== SETTINGS ==================== -->
+    <div id="page-settings" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('profile')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Settings</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="settings-content"></div></main>
+    </div>
+
+    <!-- ==================== INSPECTIONS ==================== -->
+    <div id="page-inspection" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('profile')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">My Inspections</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="inspections-list"></div></main>
+    </div>
+
+    <!-- ==================== INSPECTION FORM ==================== -->
+    <div id="page-inspection-form" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('property-details')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Book Inspection</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container" style="padding-bottom:40px;">
+            <form onsubmit="event.preventDefault(); submitInspection();" style="margin-top:14px;">
+                <div class="form-group">
+                    <label class="form-label">Property</label>
+                    <select id="inspection-property" class="form-input"></select>
+                </div>
+                <div class="form-group"><label class="form-label">Preferred Date *</label><input type="date" id="inspection-date" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">Preferred Time *</label><input type="time" id="inspection-time" class="form-input" required></div>
+                <div class="form-group"><label class="form-label">Your Name *</label><input type="text" id="inspection-name" class="form-input" placeholder="Enter your full name" required></div>
+                <div class="form-group"><label class="form-label">Phone Number *</label><input type="tel" id="inspection-phone" class="form-input" placeholder="+234 801 234 5678" required></div>
+                <div class="form-group"><label class="form-label">Message (Optional)</label><textarea id="inspection-message" class="form-input" placeholder="Any specific requirements..."></textarea></div>
+                <button type="submit" class="btn-primary" style="width:100%;padding:14px;border-radius:var(--radius-lg);background:linear-gradient(135deg,var(--primary),var(--primary-light));color:white;font-weight:700;font-size:0.9375rem;border:none;box-shadow:0 6px 20px rgba(107,78,255,0.35);margin-top:6px;">Schedule Inspection</button>
+            </form>
+        </main>
+    </div>
+
+    <!-- ==================== APPLICATIONS ==================== -->
+    <div id="page-applications" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('profile')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">My Applications</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container"><div id="applications-list"></div></main>
+    </div>
+
+    <!-- ==================== PAYMENT ==================== -->
+    <div id="page-payment" class="page">
+        <header class="app-header">
+            <div class="container header-row">
+                <button class="neu-btn-circle" onclick="navigateTo('property-details')" aria-label="Back">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                </button>
+                <h2 style="font-size:1.0625rem;font-weight:700;flex:1;text-align:center;">Payment</h2>
+                <div style="width:48px;"></div>
+            </div>
+        </header>
+        <main class="container" style="padding-bottom:40px;"><div id="payment-content"></div></main>
+    </div>
+
+    <!-- ==================== FILTER DRAWER ==================== -->
+    <div id="filter-overlay" class="filter-overlay" onclick="closeFilterDrawer()"></div>
+    <div id="filter-drawer" class="filter-drawer">
+        <div class="filter-header">
+            <h3>Filters</h3>
+            <button class="neu-btn-circle" style="width:36px;height:36px;" onclick="closeFilterDrawer()" aria-label="Close">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Location</div>
+            <div id="filter-location" class="filter-chips"></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Property Type</div>
+            <div id="filter-type" class="filter-chips"></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Bedrooms</div>
+            <div id="filter-bedrooms" class="filter-chips"></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Price Range (₦)</div>
+            <div class="filter-range">
+                <input type="number" id="min-price" placeholder="Min" min="0">
+                <span style="color:var(--muted);">-</span>
+                <input type="number" id="max-price" placeholder="Max" min="0">
+            </div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Amenities</div>
+            <div id="filter-amenities" class="filter-chips"></div>
+        </div>
+        <div class="filter-section">
+            <div class="filter-section-title">Sort By</div>
+            <select id="sort-by" class="form-input">
+                <option value="recommended">Recommended</option>
+                <option value="lowest">Lowest Price</option>
+                <option value="highest">Highest Price</option>
+                <option value="newest">Newest</option>
+            </select>
+        </div>
+        <div class="filter-actions">
+            <button class="btn-secondary" onclick="resetFilters()">Reset</button>
+            <button class="btn-primary" onclick="applyFilterChanges()">Apply Filters</button>
+        </div>
+    </div>
+
+    <!-- ==================== BOTTOM NAV ==================== -->
+    <nav id="bottom-nav" class="bottom-nav" role="navigation" aria-label="Main"></nav>
+
+    <!-- Scripts -->
+    <script src="js/properties.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) navigator.serviceWorker.register('service-worker.js').catch(()=>{});
+        document.addEventListener('DOMContentLoaded', () => {
+            const sel = document.getElementById('inspection-property');
+            if (sel) sel.innerHTML = properties.map(p => `<option value="${p.id}">${p.title} - ${p.location}</option>`).join('');
+        });
+        function openInspectionForm() {
+            const sel = document.getElementById('inspection-property');
+            if (AppState.currentProperty && sel) sel.value = AppState.currentProperty.id;
+            navigateTo('inspection-form');
+        }
+    </script>
+</body>
+</html>
